@@ -15,18 +15,18 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
-apply plugin: 'war'
+//apply plugin: 'war'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 
-war {
+/*war {
     baseName = 'symptom_manager_server'
     version =  '1.0'
    
 }
-
+*/
 repositories {
     mavenCentral()
     maven { url "http://repo.spring.io/libs-snapshot" }
