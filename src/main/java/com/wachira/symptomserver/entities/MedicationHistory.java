@@ -16,11 +16,16 @@ public class MedicationHistory implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="medication_history_id")
+	@Column(name="medication_history_id", unique=true, nullable=false)
 	private Integer medicationHistoryId;
 
 	@Column(name="time_taken")
 	private Timestamp timeTaken;
+
+	//bi-directional many-to-one association to Checkin
+	@ManyToOne
+	@JoinColumn(name="checkin_id")
+	private Checkin checkin;
 
 	//bi-directional many-to-one association to Medication
 	@ManyToOne
@@ -49,6 +54,14 @@ public class MedicationHistory implements Serializable {
 
 	public void setTimeTaken(Timestamp timeTaken) {
 		this.timeTaken = timeTaken;
+	}
+
+	public Checkin getCheckin() {
+		return this.checkin;
+	}
+
+	public void setCheckin(Checkin checkin) {
+		this.checkin = checkin;
 	}
 
 	public Medication getMedication() {

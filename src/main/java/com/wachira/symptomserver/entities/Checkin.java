@@ -1,8 +1,13 @@
 package com.wachira.symptomserver.entities;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 
 /**
@@ -10,26 +15,35 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
+@Table(name="checkin")
 @NamedQuery(name="Checkin.findAll", query="SELECT c FROM Checkin c")
 public class Checkin implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="checkin_id")
+	@Column(name="checkin_id", unique=true, nullable=false)
 	private Integer checkinId;
 
+	@Column(nullable=false)
 	private Timestamp checkindate;
 
+	@Column(length=100)
 	private String eatingimpact;
 
 	private Boolean medicationtaken;
 
+	@Column(length=100)
 	private String painseverity;
 
 	//bi-directional many-to-one association to Patient
 	@ManyToOne
 	@JoinColumn(name="patient_id")
 	private Patient patient;
+
+	//bi-directional many-to-one association to MedicationHistory
+	@JsonIgnore
+	@OneToMany(mappedBy="checkin", fetch=FetchType.EAGER)
+	private List<MedicationHistory> medicationHistories;
 
 	public Checkin() {
 	}
@@ -80,6 +94,28 @@ public class Checkin implements Serializable {
 
 	public void setPatient(Patient patient) {
 		this.patient = patient;
+	}
+
+	public List<MedicationHistory> getMedicationHistories() {
+		return this.medicationHistories;
+	}
+
+	public void setMedicationHistories(List<MedicationHistory> medicationHistories) {
+		this.medicationHistories = medicationHistories;
+	}
+
+	public MedicationHistory addMedicationHistory(MedicationHistory medicationHistory) {
+		getMedicationHistories().add(medicationHistory);
+		medicationHistory.setCheckin(this);
+
+		return medicationHistory;
+	}
+
+	public MedicationHistory removeMedicationHistory(MedicationHistory medicationHistory) {
+		getMedicationHistories().remove(medicationHistory);
+		medicationHistory.setCheckin(null);
+
+		return medicationHistory;
 	}
 
 }

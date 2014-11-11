@@ -1,7 +1,11 @@
 package com.wachira.symptomserver.entities;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -10,32 +14,36 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="patient")
 @NamedQuery(name="Patient.findAll", query="SELECT p FROM Patient p")
 public class Patient implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="patient_id")
+	@Column(name="patient_id", unique=true, nullable=false)
 	private Integer patientId;
 
-	@Column(name="first_name")
+	@Column(name="first_name", length=100)
 	private String firstName;
 
-	@Column(name="last_name")
+	@Column(name="last_name", length=100)
 	private String lastName;
 
-	@Column(name="user_name")
+	@Column(name="user_name", nullable=false, length=50)
 	private String userName;
 
 	//bi-directional many-to-one association to Alert
+	@JsonIgnore
 	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER)
 	private List<Alert> alerts;
 
 	//bi-directional many-to-one association to Checkin
+	@JsonIgnore
 	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER)
 	private List<Checkin> checkins;
 
 	//bi-directional many-to-one association to MedicationHistory
+	@JsonIgnore
 	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER)
 	private List<MedicationHistory> medicationHistories;
 

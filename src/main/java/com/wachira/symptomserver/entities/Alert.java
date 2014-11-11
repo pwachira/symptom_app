@@ -9,15 +9,16 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@Table(name="alert")
 @NamedQuery(name="Alert.findAll", query="SELECT a FROM Alert a")
 public class Alert implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="alert_id")
+	@Column(name="alert_id", unique=true, nullable=false)
 	private Integer alertId;
 
-	@Column(name="alert_description")
+	@Column(name="alert_description", length=255)
 	private String alertDescription;
 
 	//bi-directional many-to-one association to Doctor
