@@ -88,13 +88,21 @@ public class Application extends RepositoryRestMvcConfiguration {
         URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
         String username = dbUri.getUserInfo().split(":")[0];
-        //String password = dbUri.getUserInfo().split(":")[1];
+        String password;
+        
+        try {
+        	 password = dbUri.getUserInfo().split(":")[1];
+		} catch (Exception e) {
+			// TODO: handle exception
+			password ="";
+		}
         String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setUrl(dbUrl);
         basicDataSource.setUsername(username);
-        //basicDataSource.setPassword(password);
+        if (!password.isEmpty())
+        	{basicDataSource.setPassword(password);}
 
         return basicDataSource;
     }
