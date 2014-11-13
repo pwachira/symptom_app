@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 // find any Controllers or other components that are part of our applciation.
 // Any class in this package that is annotated with @Controller is going to be
 // automatically discovered and connected to the DispatcherServlet.
-@ComponentScan
+@ComponentScan("com.wachira.symptomserver")
 // We use the @Import annotation to include our OAuth2SecurityConfiguration
 // as part of this configuration so that we can have security and oauth
 // setup by Spring
@@ -71,17 +71,7 @@ public class Application extends RepositoryRestMvcConfiguration {
 		return new ResourcesMapper();
 	}
 	
-	/*@Value("#{systemEnvironment['DbURL']")
-	private String dbUrl;
-	
-	@Bean
-	public URI dbUri() throws URISyntaxException{
-		
-		return new URI()
 
-		 
-	}
-	*/
 	
     @Bean
     public BasicDataSource dataSource() throws URISyntaxException {

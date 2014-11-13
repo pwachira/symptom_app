@@ -93,9 +93,11 @@ public class OAuth2SecurityConfiguration {
 			
 			.authorizeRequests()
 				.antMatchers("/oauth/token").anonymous()
+				.antMatchers( "/checkins/authenticate")
+					.access("#oauth2.hasScope('managecheckins') and hasRole(ROLE_PATIENT)")
 		/*		.antMatchers( "/patients","/patient").access("#oauth2.hasScope('managepatient')")
 				.antMatchers("/checkin","/checkins").access("#oauth2.hasScope('managecheckin')")
-				.antMatchers("/**").authenticated() */
+		*/		//.antMatchers("/**").authenticated() ;
 				;
 		}
 
@@ -141,24 +143,25 @@ public class OAuth2SecurityConfiguration {
 			ClientDetailsService csvc = new InMemoryClientDetailsServiceBuilder()
 					// Create a client that has "read" and "write" access to the
 			        // video service
-					.withClient("patientclient").authorizedGrantTypes("password")
-					.authorities("ROLE_PATIENT", "ROLE_TRUSTED_CLIENT")
-					.scopes("managecheckin").resourceIds("checkin")
+					.withClient("mobile").authorizedGrantTypes("password")
+					.authorities("ROLE_CLIENT")
+					.scopes("managecheckins").resourceIds("checkin","patient")
 					.and()
 					// Create a second client that only has "read" access to the
 					// video service
-					.withClient("doctorclient").authorizedGrantTypes("password")
-					.authorities("ROLE_DOCTOR")
-					.scopes("managepatient").resourceIds("patient")
+				//	.withClient("doctorclient").authorizedGrantTypes("password")
+				//	.authorities("ROLE_DOCTOR")
+					//.scopes("managepatient").resourceIds("patient")
 					//.accessTokenValiditySeconds(3600)
-					.and().build();
+					//.and()
+					.build();
 
 			// Create a series of hard-coded users. 
 			UserDetailsService svc = new InMemoryUserDetailsManager(
 					Arrays.asList(
-							User.create("admin", "adminpass", "ADMIN", "PATIENT","DOCTOR"),
-							User.create("patient_1", "patientpass", "PATIENT"),
-							User.create("doc_1", "doctorpass", "DOCTOR")));
+							User.create("admin", "adminpass", "ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"),
+							User.create("patient_1", "patientpass", "ROLE_PATIENT"),
+							User.create("doc_1", "doctorpass", "ROLE_DOCTOR")));
 
 			// Since clients have to use BASIC authentication with the client's id/secret,
 			// when sending a request for a password grant, we make each client a user
@@ -228,7 +231,7 @@ public class OAuth2SecurityConfiguration {
 	//
 	//       http://tomcat.apache.org/tomcat-7.0-doc/ssl-howto.html
 	//
-    @Bean
+/*    @Bean
     EmbeddedServletContainerCustomizer containerCustomizer(
             @Value("${keystore.file:src/main/resources/private/keystore}") String keystoreFile,
             @Value("${keystore.pass:changeit}") final String keystorePass) throws Exception {
@@ -262,8 +265,9 @@ public class OAuth2SecurityConfiguration {
 		                    });
 		    
 			}
+			
         };
-    }
+    } */
 	
 
 }
