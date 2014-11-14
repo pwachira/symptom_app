@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dlogging.level.org.springframework=ERROR -Dlogging.level.org.hibernate.tool=ERROR -Dlogging.level.org.hibernate=ERROR -jar build/libs/symptom_manager_server.jar
+web: java $JAVA_OPTS -Dserver.port=8080 -Dlogging.level.org.springframework=ERROR -Dlogging.level.org.hibernate.tool=ERROR -Dlogging.level.org.hibernate=ERROR -jar build/libs/symptom_manager_server.jar
