@@ -61,7 +61,7 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.2'
 }
-task stage(type: Copy, dependsOn: [clean, build]) {
+/*task stage(type: Copy, dependsOn: [clean, build]) {
     from jar.archivePath
     into project.rootDir 
     rename {
@@ -73,3 +73,4 @@ stage.mustRunAfter(clean)
 clean << {
     project.file('symptom_manager_server.jar').delete()
 }
+*/
