@@ -9,7 +9,7 @@ public class CheckinController {
 	
 	@RequestMapping("/authenticate")
 	public @ResponseBody String EmptyMethod(){
-		return "Successfull authentication";
+		return "{Successfull authentication}";
 	}
 	
 }
