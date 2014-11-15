@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class CheckinController {
 	
-	@RequestMapping("/checkins/authenticate")
+	@RequestMapping("/authenticate")
 	public @ResponseBody String EmptyMethod(){
-		return "OK";
+		return "Successfull authentication";
 	}
 	
 }
