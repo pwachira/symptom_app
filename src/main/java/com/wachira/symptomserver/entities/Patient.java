@@ -4,8 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import com.wachira.symptomserver.entities.PatientMedication;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -22,6 +25,12 @@ public class Patient implements Serializable {
 	@Id
 	@Column(name="patient_id", unique=true, nullable=false)
 	private Integer patientId;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="date_of_birth")
+	private Date dateOfBirth;
+	
+
 
 	@Column(name="first_name", length=100)
 	private String firstName;
@@ -46,6 +55,11 @@ public class Patient implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER)
 	private List<MedicationHistory> medicationHistories;
+	
+	//bi-directional many-to-one association to PatientMedication
+	@JsonIgnore
+	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER)
+	private List<PatientMedication> patientMedications;
 
 	//bi-directional many-to-one association to Doctor
 	@ManyToOne
@@ -62,7 +76,13 @@ public class Patient implements Serializable {
 	public void setPatientId(Integer patientId) {
 		this.patientId = patientId;
 	}
+	public Date getDateOfBirth() {
+		return this.dateOfBirth;
+	}
 
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
 	public String getFirstName() {
 		return this.firstName;
 	}
@@ -160,5 +180,27 @@ public class Patient implements Serializable {
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
 	}
+	public List<PatientMedication> getPatientMedications() {
+		return this.patientMedications;
+	}
+
+	public void setPatientMedications(List<PatientMedication> patientMedications) {
+		this.patientMedications = patientMedications;
+	}
+
+	public PatientMedication addPatientMedication(PatientMedication patientMedication) {
+		getPatientMedications().add(patientMedication);
+		patientMedication.setPatient(this);
+
+		return patientMedication;
+	}
+
+	public PatientMedication removePatientMedication(PatientMedication patientMedication) {
+		getPatientMedications().remove(patientMedication);
+		patientMedication.setPatient(null);
+
+		return patientMedication;
+	}
+
 
 }

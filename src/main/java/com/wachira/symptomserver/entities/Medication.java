@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import com.wachira.symptomserver.entities.PatientMedication;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
@@ -30,6 +32,11 @@ public class Medication implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy="medication", fetch=FetchType.EAGER)
 	private List<MedicationHistory> medicationHistories;
+
+	//bi-directional many-to-one association to PatientMedication
+	@JsonIgnore
+	@OneToMany(mappedBy="medication", fetch=FetchType.EAGER)
+	private List<PatientMedication> patientMedications;
 
 	public Medication() {
 	}
@@ -71,5 +78,28 @@ public class Medication implements Serializable {
 
 		return medicationHistory;
 	}
+	
+	public List<PatientMedication> getPatientMedications() {
+		return this.patientMedications;
+	}
+
+	public void setPatientMedications(List<PatientMedication> patientMedications) {
+		this.patientMedications = patientMedications;
+	}
+
+	public PatientMedication addPatientMedication(PatientMedication patientMedication) {
+		getPatientMedications().add(patientMedication);
+		patientMedication.setMedication(this);
+
+		return patientMedication;
+	}
+
+	public PatientMedication removePatientMedication(PatientMedication patientMedication) {
+		getPatientMedications().remove(patientMedication);
+		patientMedication.setMedication(null);
+
+		return patientMedication;
+	}
+
 
 }

@@ -60,11 +60,9 @@ dependencies {
     testCompile("junit:junit")
 }
 
-/*task wrapper(type: Wrapper) {
+task wrapper(type: Wrapper) {
     gradleVersion = '2.2'
 }
-*/
 
-task stage {
-}
+
 

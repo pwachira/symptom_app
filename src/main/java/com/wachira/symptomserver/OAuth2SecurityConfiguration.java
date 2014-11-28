@@ -95,10 +95,13 @@ public class OAuth2SecurityConfiguration {
 				.antMatchers("/oauth/token").anonymous()
 				.antMatchers( "/authenticate")
 					.access("#oauth2.hasScope('managecheckins') and hasRole('ROLE_PATIENT')")
+				//.antMatchers( "/patientMedications").permitAll()
+				.antMatchers( "/**").permitAll()
+					//.access("#oauth2.hasScope('managecheckins') and hasRole('ROLE_PATIENT')")
 		/*		.antMatchers( "/patients","/patient").access("#oauth2.hasScope('managepatient')")
 				.antMatchers("/checkin","/checkins").access("#oauth2.hasScope('managecheckin')")
 				.antMatchers("/**").authenticated() ;
-		*/		.and().httpBasic();
+				.and().httpBasic(); */
 					;
 		}
 
