@@ -26,7 +26,7 @@ public class CheckinController {
 	@Autowired
 	private CheckinService checkinService;
 	
-	@RequestMapping("/doctor/getPatients")
+	@RequestMapping(value="/doctor/getPatients", method=RequestMethod.GET)
 	public List<Patient> getPatientsByDoctor(Principal principal){
 		return checkinService.getPatientsByDoctor(principal.getName());
 	}

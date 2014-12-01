@@ -169,7 +169,7 @@ public class OAuth2SecurityConfiguration {
 					Arrays.asList(
 							User.create("admin", "adminpass", "ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"),
 							User.create("patient_1", "ptpass", "ROLE_PATIENT"),
-							User.create("doc_1", "1245", "ROLE_DOCTOR")));
+							User.create("docid1", "docpass", "ROLE_DOCTOR")));
 
 			// Since clients have to use BASIC authentication with the client's id/secret,
 			// when sending a request for a password grant, we make each client a user
