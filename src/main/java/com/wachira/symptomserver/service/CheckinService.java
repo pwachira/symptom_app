@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wachira.symptomserver.entities.Checkin;
+import com.wachira.symptomserver.entities.Doctor;
 import com.wachira.symptomserver.entities.Medication;
 import com.wachira.symptomserver.entities.MedicationHistory;
 import com.wachira.symptomserver.entities.Patient;
 import com.wachira.symptomserver.entities.PatientMedication;
 import com.wachira.symptomserver.repository.CheckinRepository;
+import com.wachira.symptomserver.repository.DoctorRepository;
 import com.wachira.symptomserver.repository.MedicationHistoryRepository;
 import com.wachira.symptomserver.repository.MedicationRepository;
 import com.wachira.symptomserver.repository.PatientMedicationRepository;
@@ -28,6 +30,9 @@ public class CheckinService {
 	
 	@Autowired	
 	private PatientRepository ptRepo;
+
+	@Autowired	
+	private DoctorRepository docRepo;
 	
 	@Autowired
 	private CheckinRepository checkinRepo;
@@ -73,5 +78,10 @@ public class CheckinService {
 	public MedicationHistory saveMedicationHistory(MedicationHistory medHx){
 		return medHxRepo.save( medHx);
 		
+	}
+
+	public List<Patient> getPatientsByDoctor(String providerId) {
+		Doctor doc = docRepo.findByNationalProviderId(providerId);
+		return ptRepo.findByDoctor(doc);
 	}
 }

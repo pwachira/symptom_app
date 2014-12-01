@@ -26,6 +26,10 @@ public class CheckinController {
 	@Autowired
 	private CheckinService checkinService;
 	
+	@RequestMapping("/doctor/getPatients")
+	public List<Patient> getPatientsByDoctor(Principal principal){
+		return checkinService.getPatientsByDoctor(principal.getName());
+	}
 	
 	@RequestMapping("/authenticate")
 	public @ResponseBody OkResponse EmptyMethod(){

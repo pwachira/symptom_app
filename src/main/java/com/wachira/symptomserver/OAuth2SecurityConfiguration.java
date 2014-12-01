@@ -93,18 +93,20 @@ public class OAuth2SecurityConfiguration {
 			
 			.authorizeRequests()
 				.antMatchers("/oauth/token").anonymous()
-				.antMatchers( "/patient/authenticate")
-					.access("#oauth2.hasScope('managecheckins') and hasRole('ROLE_PATIENT')")
-			    .antMatchers( "/docor/**")
-					.access("#oauth2.hasScope('managecheckins') and hasRole('ROLE_DOCTOR')")	
+				.antMatchers( "/authenticate")
+					.access("#oauth2.hasScope('managecheckins') and hasRole('ROLE_PATIENT') or hasRole('ROLE_DOCTOR')")
+			    .antMatchers( "/doctor/**")
+					.access("#oauth2.hasScope('managecheckins') and hasRole('ROLE_DOCTOR')")
+				.antMatchers( "/patient/**")
+					.access("#oauth2.hasScope('managecheckins') and hasRole('ROLE_PATIENT')")	
 				//.antMatchers( "/patientMedications").permitAll()
-				.antMatchers( "/**").permitAll()
+				//.antMatchers( "/**").permitAll()
 					//.access("#oauth2.hasScope('managecheckins') and hasRole('ROLE_PATIENT')")
 		/*		.antMatchers( "/patients","/patient").access("#oauth2.hasScope('managepatient')")
 				.antMatchers("/checkin","/checkins").access("#oauth2.hasScope('managecheckin')")
 				.antMatchers("/**").authenticated() ;
-				.and().httpBasic(); */
-					;
+	*/			.and().httpBasic(); 
+					
 		}
 
 	}
@@ -166,8 +168,8 @@ public class OAuth2SecurityConfiguration {
 			UserDetailsService svc = new InMemoryUserDetailsManager(
 					Arrays.asList(
 							User.create("admin", "adminpass", "ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"),
-							User.create("patient_1", "patientpass", "ROLE_PATIENT"),
-							User.create("doc_1", "doctorpass", "ROLE_DOCTOR")));
+							User.create("patient_1", "ptpass", "ROLE_PATIENT"),
+							User.create("doc_1", "1245", "ROLE_DOCTOR")));
 
 			// Since clients have to use BASIC authentication with the client's id/secret,
 			// when sending a request for a password grant, we make each client a user
