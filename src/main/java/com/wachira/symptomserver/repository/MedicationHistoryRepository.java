@@ -10,4 +10,5 @@ import com.wachira.symptomserver.entities.MedicationHistory;
 public interface MedicationHistoryRepository extends
 		CrudRepository<MedicationHistory, Integer> {
 
+	public MedicationHistory save(MedicationHistory medHx);
 }

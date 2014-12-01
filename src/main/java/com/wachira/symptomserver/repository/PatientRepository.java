@@ -14,4 +14,6 @@ public interface PatientRepository extends CrudRepository<Patient, Integer> {
 	public List<Patient> findAll();
 	
 	public Patient findByUserName(String username);
+	
+	public Patient save(Patient patient);
 }

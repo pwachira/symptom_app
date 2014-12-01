@@ -9,4 +9,5 @@ import com.wachira.symptomserver.entities.Checkin;
 @Repository
 public interface CheckinRepository extends CrudRepository<Checkin, Integer> {
 
+	public Checkin save(Checkin checkin);
 }

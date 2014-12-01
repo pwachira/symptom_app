@@ -9,5 +9,5 @@ import com.wachira.symptomserver.entities.Medication;
 @Repository
 public interface MedicationRepository extends
 		CrudRepository<Medication, Integer> {
-
+	public Medication findMedicationByMedicationName(String medicationName);
 }

@@ -93,8 +93,10 @@ public class OAuth2SecurityConfiguration {
 			
 			.authorizeRequests()
 				.antMatchers("/oauth/token").anonymous()
-				.antMatchers( "/authenticate")
+				.antMatchers( "/patient/authenticate")
 					.access("#oauth2.hasScope('managecheckins') and hasRole('ROLE_PATIENT')")
+			    .antMatchers( "/docor/**")
+					.access("#oauth2.hasScope('managecheckins') and hasRole('ROLE_DOCTOR')")	
 				//.antMatchers( "/patientMedications").permitAll()
 				.antMatchers( "/**").permitAll()
 					//.access("#oauth2.hasScope('managecheckins') and hasRole('ROLE_PATIENT')")
