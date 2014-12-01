@@ -27,7 +27,7 @@ public class CheckinController {
 	private CheckinService checkinService;
 	
 	@RequestMapping(value="/doctor/getPatients", method=RequestMethod.GET)
-	public List<Patient> getPatientsByDoctor(Principal principal){
+	public @ResponseBody List<Patient> getPatientsByDoctor(Principal principal){
 		return checkinService.getPatientsByDoctor(principal.getName());
 	}
 	
