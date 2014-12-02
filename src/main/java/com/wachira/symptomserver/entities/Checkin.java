@@ -21,6 +21,8 @@ public class Checkin implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="CHECKIN_CHECKINID_GENERATOR", sequenceName="CHECKIN_CHECKIN_ID_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CHECKIN_CHECKINID_GENERATOR")
 	@Column(name="checkin_id", unique=true, nullable=false)
 	private Integer checkinId;
 

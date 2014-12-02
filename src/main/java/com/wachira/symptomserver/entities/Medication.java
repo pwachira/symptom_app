@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import com.wachira.symptomserver.entities.PatientMedication;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
@@ -21,7 +20,10 @@ import java.util.List;
 public class Medication implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+
 	@Id
+	@SequenceGenerator(name="MEDICATION_MEDICATIONID_GENERATOR", sequenceName="MEDICATION_MEDICATION_ID_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MEDICATION_MEDICATIONID_GENERATOR")
 	@Column(name="medication_id", unique=true, nullable=false)
 	private Integer medicationId;
 

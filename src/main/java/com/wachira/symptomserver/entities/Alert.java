@@ -1,6 +1,7 @@
 package com.wachira.symptomserver.entities;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -15,6 +16,8 @@ public class Alert implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="ALERT_ALERTID_GENERATOR", sequenceName="ALERT_ALERT_ID_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ALERT_ALERTID_GENERATOR")
 	@Column(name="alert_id", unique=true, nullable=false)
 	private Integer alertId;
 

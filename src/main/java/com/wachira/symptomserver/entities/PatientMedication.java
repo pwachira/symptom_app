@@ -1,6 +1,7 @@
 package com.wachira.symptomserver.entities;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -15,6 +16,8 @@ public class PatientMedication implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="PATIENT_MEDICATION_PATIENTMEDICATIONID_GENERATOR", sequenceName="PATIENT_MEDICATION_PATIENT_MEDICATION_ID_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PATIENT_MEDICATION_PATIENTMEDICATIONID_GENERATOR")
 	@Column(name="patient_medication_id", unique=true, nullable=false)
 	private Integer patientMedicationId;
 

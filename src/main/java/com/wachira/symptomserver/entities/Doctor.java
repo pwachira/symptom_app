@@ -20,6 +20,8 @@ public class Doctor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="DOCTOR_DOCTORID_GENERATOR", sequenceName="DOCTOR_DOCTOR_ID_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="DOCTOR_DOCTORID_GENERATOR")
 	@Column(name="doctor_id", unique=true, nullable=false)
 	private Integer doctorId;
 
