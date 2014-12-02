@@ -18,8 +18,9 @@ public class MedicationHistory implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="MEDICATION_HISTORY_MEDICATIONHISTORYID_GENERATOR", sequenceName="MEDICATION_HISTORY_MEDICATION_HISTORY_ID_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MEDICATION_HISTORY_MEDICATIONHISTORYID_GENERATOR")
+	//@SequenceGenerator(name="MEDICATION_HISTORY_MEDICATIONHISTORYID_GENERATOR", sequenceName="MEDICATION_HISTORY_MEDICATION_HISTORY_ID_SEQ")
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MEDICATION_HISTORY_MEDICATIONHISTORYID_GENERATOR")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="medication_history_id", unique=true, nullable=false)
 	private Integer medicationHistoryId;
 

@@ -22,8 +22,10 @@ public class Medication implements Serializable {
 
 
 	@Id
-	@SequenceGenerator(name="MEDICATION_MEDICATIONID_GENERATOR", sequenceName="MEDICATION_MEDICATION_ID_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MEDICATION_MEDICATIONID_GENERATOR")
+	//@SequenceGenerator(name="MEDICATION_MEDICATIONID_GENERATOR", sequenceName="MEDICATION_MEDICATION_ID_SEQ")
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MEDICATION_MEDICATIONID_GENERATOR")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	@Column(name="medication_id", unique=true, nullable=false)
 	private Integer medicationId;
 
