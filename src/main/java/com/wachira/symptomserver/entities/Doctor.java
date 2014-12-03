@@ -20,8 +20,10 @@ public class Doctor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="DOCTOR_DOCTORID_GENERATOR", sequenceName="DOCTOR_DOCTOR_ID_SEQ")
+	/*@SequenceGenerator(name="DOCTOR_DOCTORID_GENERATOR", sequenceName="DOCTOR_DOCTOR_ID_SEQ")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="DOCTOR_DOCTORID_GENERATOR")
+	*/
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="doctor_id", unique=true, nullable=false)
 	private Integer doctorId;
 
@@ -39,12 +41,13 @@ public class Doctor implements Serializable {
 
 	//bi-directional many-to-one association to Alert
 	@JsonIgnore
-	@OneToMany(mappedBy="doctor", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="doctor", fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
 	private List<Alert> alerts;
 
 	//bi-directional many-to-one association to Patient
 	@JsonIgnore
-	@OneToMany(mappedBy="doctor", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="doctor", fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
+	
 	private List<Patient> patients;
 
 	public Doctor() {

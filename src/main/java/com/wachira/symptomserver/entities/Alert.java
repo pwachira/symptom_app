@@ -16,8 +16,10 @@ public class Alert implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="ALERT_ALERTID_GENERATOR", sequenceName="ALERT_ALERT_ID_SEQ")
+	/*@SequenceGenerator(name="ALERT_ALERTID_GENERATOR", sequenceName="ALERT_ALERT_ID_SEQ")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ALERT_ALERTID_GENERATOR")
+	*/
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="alert_id", unique=true, nullable=false)
 	private Integer alertId;
 
@@ -25,12 +27,12 @@ public class Alert implements Serializable {
 	private String alertDescription;
 
 	//bi-directional many-to-one association to Doctor
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="doctor_id")
 	private Doctor doctor;
 
 	//bi-directional many-to-one association to Patient
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="patient_id")
 	private Patient patient;
 

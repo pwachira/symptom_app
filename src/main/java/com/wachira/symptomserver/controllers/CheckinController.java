@@ -1,6 +1,7 @@
 package com.wachira.symptomserver.controllers;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class CheckinController {
 	public @ResponseBody OkResponse checkin(Principal principal,@RequestBody CheckinDTO checkinDTO){
 		
 		Checkin checkin = new Checkin();
-		checkin = checkinService.saveCheckin(checkin);
+		//checkin = checkinService.saveCheckin(checkin);
 		checkin.setCheckindate(checkinDTO.getCheckindate());
 		checkin.setEatingimpact(checkinDTO.getEatingimpact());
 		checkin.setMedicationtaken(checkinDTO.getMedicationtaken());
@@ -57,25 +58,26 @@ public class CheckinController {
 		checkin.setPatient(patient);
 		patient.addCheckin(checkin);
 		
-		
+		List<MedicationHistory> listMedHx = new ArrayList<MedicationHistory>();
 		
 		for(MedicationHistoryDTO medHxDTO:checkinDTO.getMedicationHistories()){
 			MedicationHistory medHx = new MedicationHistory();
-			medHx = checkinService.saveMedicationHistory(medHx);
+			//medHx = checkinService.saveMedicationHistory(medHx);
 			medHx.setCheckin(checkin);
 			Medication med =checkinService
-			.findMedicationByMedicationName(medHxDTO.getMedication().getMedicationName());
+					.findMedicationByMedicationName(medHxDTO.getMedication().getMedicationName());
 			medHx.setMedication(med);
 			med.addMedicationHistory(medHx);
 			medHx.setPatient(patient);
 			patient.addMedicationHistory(medHx);
 			medHx.setTimeTaken(medHxDTO.getTimeTaken());
-			checkinService.saveMedicationHistory(medHx);
-			checkinService.saveMedication(med);
+			listMedHx.add(medHx);
+			//checkinService.saveMedicationHistory(medHx);
+			//checkinService.saveMedication(med);
 		}
-	
+		checkin.setMedicationHistories(listMedHx);
 		checkinService.saveCheckin(checkin);
-		checkinService.savePatient(patient);
+		//checkinService.savePatient(patient);
 		return new OkResponse("OK");
 	}
 }

@@ -34,12 +34,12 @@ public class Medication implements Serializable {
 
 	//bi-directional many-to-one association to MedicationHistory
 	@JsonIgnore
-	@OneToMany(mappedBy="medication", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="medication", fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
 	private List<MedicationHistory> medicationHistories;
 
 	//bi-directional many-to-one association to PatientMedication
 	@JsonIgnore
-	@OneToMany(mappedBy="medication", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="medication", fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
 	private List<PatientMedication> patientMedications;
 
 	public Medication() {

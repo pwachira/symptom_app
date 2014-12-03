@@ -33,12 +33,12 @@ public class MedicationHistory implements Serializable {
 	private Checkin checkin;
 
 	//bi-directional many-to-one association to Medication
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="medicaton_id")
 	private Medication medication;
 
 	//bi-directional many-to-one association to Patient
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="patient_id")
 	private Patient patient;
 

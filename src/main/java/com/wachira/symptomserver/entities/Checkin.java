@@ -40,13 +40,13 @@ public class Checkin implements Serializable {
 	private String painseverity;
 
 	//bi-directional many-to-one association to Patient
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="patient_id")
 	private Patient patient;
 
 	//bi-directional many-to-one association to MedicationHistory
 	@JsonIgnore
-	@OneToMany(mappedBy="checkin", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="checkin", fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
 	private List<MedicationHistory> medicationHistories;
 
 	public Checkin() {

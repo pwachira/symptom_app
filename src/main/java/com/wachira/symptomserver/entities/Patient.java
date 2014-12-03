@@ -50,21 +50,21 @@ public class Patient implements Serializable {
 
 	//bi-directional many-to-one association to Checkin
 	@JsonIgnore
-	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	private List<Checkin> checkins;
 
 	//bi-directional many-to-one association to MedicationHistory
 	@JsonIgnore
-	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	private List<MedicationHistory> medicationHistories;
 	
 	//bi-directional many-to-one association to PatientMedication
 	@JsonIgnore
-	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	private List<PatientMedication> patientMedications;
 
 	//bi-directional many-to-one association to Doctor
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="doctor_id")
 	private Doctor doctor;
 
