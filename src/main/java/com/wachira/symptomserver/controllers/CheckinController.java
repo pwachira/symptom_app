@@ -45,39 +45,6 @@ public class CheckinController {
 	
 	@RequestMapping(value="/patient/checkin", method=RequestMethod.POST)
 	public @ResponseBody OkResponse checkin(Principal principal,@RequestBody CheckinDTO checkinDTO){
-		
-		Checkin checkin = new Checkin();
-		//checkin = checkinService.saveCheckin(checkin);
-		checkin.setCheckindate(checkinDTO.getCheckindate());
-		checkin.setEatingimpact(checkinDTO.getEatingimpact());
-		checkin.setMedicationtaken(checkinDTO.getMedicationtaken());
-		checkin.setPainseverity(checkinDTO.getPainseverity());
-		
-		
-		Patient patient = checkinService.findPatientByUserName(principal.getName());
-		checkin.setPatient(patient);
-		patient.addCheckin(checkin);
-		
-		List<MedicationHistory> listMedHx = new ArrayList<MedicationHistory>();
-		
-		for(MedicationHistoryDTO medHxDTO:checkinDTO.getMedicationHistories()){
-			MedicationHistory medHx = new MedicationHistory();
-			//medHx = checkinService.saveMedicationHistory(medHx);
-			medHx.setCheckin(checkin);
-			Medication med =checkinService
-					.findMedicationByMedicationName(medHxDTO.getMedication().getMedicationName());
-			medHx.setMedication(med);
-			med.addMedicationHistory(medHx);
-			medHx.setPatient(patient);
-			patient.addMedicationHistory(medHx);
-			medHx.setTimeTaken(medHxDTO.getTimeTaken());
-			listMedHx.add(medHx);
-			//checkinService.saveMedicationHistory(medHx);
-			//checkinService.saveMedication(med);
-		}
-		checkin.setMedicationHistories(listMedHx);
-		checkinService.saveCheckin(checkin);
-		//checkinService.savePatient(patient);
-		return new OkResponse("OK");
+		return checkinService.saveCheckinFromDTO(principal,checkinDTO);
 	}
 }
