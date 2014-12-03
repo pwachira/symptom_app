@@ -40,7 +40,7 @@ public class Patient implements Serializable {
 	@Column(name="last_name", length=100)
 	private String lastName;
 
-	@Column(name="user_name", nullable=false, length=50)
+	@Column(name="user_name", length=50)
 	private String userName;
 
 	//bi-directional many-to-one association to Alert

@@ -28,7 +28,7 @@ public class Checkin implements Serializable {
 	@Column(name="checkin_id", unique=true, nullable=false)
 	private Integer checkinId;
 
-	@Column(nullable=false)
+	@Column
 	private Timestamp checkindate;
 
 	@Column(length=100)
