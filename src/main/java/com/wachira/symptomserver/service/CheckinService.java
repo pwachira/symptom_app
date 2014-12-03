@@ -40,6 +40,7 @@ public class CheckinService {
 	@Autowired
 	private MedicationHistoryRepository medHxRepo;	
 	
+		
 	public List<PatientMedsDTO> getPatientMeds(String username){
 		
 		List<PatientMedsDTO> meds = new ArrayList<PatientMedsDTO>();
@@ -83,5 +84,9 @@ public class CheckinService {
 	public List<Patient> getPatientsByDoctor(String providerId) {
 		Doctor doc = docRepo.findByNationalProviderId(providerId);
 		return ptRepo.findByDoctor(doc);
+	}
+
+	public Medication saveMedication(Medication med) {
+		return medRepo.save(med);
 	}
 }

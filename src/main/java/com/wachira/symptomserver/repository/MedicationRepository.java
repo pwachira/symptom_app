@@ -10,4 +10,5 @@ import com.wachira.symptomserver.entities.Medication;
 public interface MedicationRepository extends
 		CrudRepository<Medication, Integer> {
 	public Medication findMedicationByMedicationName(String medicationName);
+	public Medication save(Medication med);
 }

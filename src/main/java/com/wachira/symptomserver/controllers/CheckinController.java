@@ -46,6 +46,7 @@ public class CheckinController {
 	public @ResponseBody OkResponse checkin(Principal principal,@RequestBody CheckinDTO checkinDTO){
 		
 		Checkin checkin = new Checkin();
+		checkin = checkinService.saveCheckin(checkin);
 		checkin.setCheckindate(checkinDTO.getCheckindate());
 		checkin.setEatingimpact(checkinDTO.getEatingimpact());
 		checkin.setMedicationtaken(checkinDTO.getMedicationtaken());
@@ -60,6 +61,7 @@ public class CheckinController {
 		
 		for(MedicationHistoryDTO medHxDTO:checkinDTO.getMedicationHistories()){
 			MedicationHistory medHx = new MedicationHistory();
+			medHx = checkinService.saveMedicationHistory(medHx);
 			medHx.setCheckin(checkin);
 			Medication med =checkinService
 			.findMedicationByMedicationName(medHxDTO.getMedication().getMedicationName());
@@ -69,6 +71,7 @@ public class CheckinController {
 			patient.addMedicationHistory(medHx);
 			medHx.setTimeTaken(medHxDTO.getTimeTaken());
 			checkinService.saveMedicationHistory(medHx);
+			checkinService.saveMedication(med);
 		}
 	
 		checkinService.saveCheckin(checkin);
