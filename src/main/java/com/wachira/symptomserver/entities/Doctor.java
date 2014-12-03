@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
@@ -41,13 +44,14 @@ public class Doctor implements Serializable {
 
 	//bi-directional many-to-one association to Alert
 	@JsonIgnore
-	@OneToMany(mappedBy="doctor", fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="doctor", fetch=FetchType.EAGER)
+	@Cascade({ CascadeType.PERSIST })
 	private List<Alert> alerts;
 
 	//bi-directional many-to-one association to Patient
 	@JsonIgnore
-	@OneToMany(mappedBy="doctor", fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
-	
+	@OneToMany(mappedBy="doctor", fetch=FetchType.EAGER)
+	@Cascade({ CascadeType.PERSIST })
 	private List<Patient> patients;
 
 	public Doctor() {

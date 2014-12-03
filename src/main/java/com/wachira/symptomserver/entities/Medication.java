@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import com.wachira.symptomserver.entities.PatientMedication;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -34,12 +37,14 @@ public class Medication implements Serializable {
 
 	//bi-directional many-to-one association to MedicationHistory
 	@JsonIgnore
-	@OneToMany(mappedBy="medication", fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="medication", fetch=FetchType.EAGER)
+	@Cascade({ CascadeType.PERSIST })
 	private List<MedicationHistory> medicationHistories;
 
 	//bi-directional many-to-one association to PatientMedication
 	@JsonIgnore
-	@OneToMany(mappedBy="medication", fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="medication", fetch=FetchType.EAGER)
+	@Cascade({ CascadeType.PERSIST })
 	private List<PatientMedication> patientMedications;
 
 	public Medication() {

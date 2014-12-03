@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 
 /**
  * The persistent class for the alert database table.
@@ -27,12 +30,14 @@ public class Alert implements Serializable {
 	private String alertDescription;
 
 	//bi-directional many-to-one association to Doctor
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne
+	@Cascade({ CascadeType.PERSIST })
 	@JoinColumn(name="doctor_id")
 	private Doctor doctor;
 
 	//bi-directional many-to-one association to Patient
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne
+	@Cascade({ CascadeType.PERSIST })
 	@JoinColumn(name="patient_id")
 	private Patient patient;
 

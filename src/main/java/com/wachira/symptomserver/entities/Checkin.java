@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.sql.Timestamp;
@@ -40,13 +44,15 @@ public class Checkin implements Serializable {
 	private String painseverity;
 
 	//bi-directional many-to-one association to Patient
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne
+	@Cascade({ CascadeType.PERSIST })
 	@JoinColumn(name="patient_id")
 	private Patient patient;
 
 	//bi-directional many-to-one association to MedicationHistory
 	@JsonIgnore
-	@OneToMany(mappedBy="checkin", fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="checkin", fetch=FetchType.EAGER)
+	@Cascade({ CascadeType.PERSIST })
 	private List<MedicationHistory> medicationHistories;
 
 	public Checkin() {

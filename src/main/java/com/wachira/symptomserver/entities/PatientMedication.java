@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 
 /**
  * The persistent class for the patient_medication database table.
@@ -27,10 +30,12 @@ public class PatientMedication implements Serializable {
 	//bi-directional many-to-one association to Medication
 	@ManyToOne
 	@JoinColumn(name="medication_id")
+	@Cascade({ CascadeType.PERSIST })
 	private Medication medication;
 
 	//bi-directional many-to-one association to Patient
 	@ManyToOne
+	@Cascade({ CascadeType.PERSIST })
 	@JoinColumn(name="patient_id")
 	private Patient patient;
 

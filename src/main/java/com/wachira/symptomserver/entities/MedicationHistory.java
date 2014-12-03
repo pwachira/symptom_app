@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import java.sql.Timestamp;
 
 
@@ -30,15 +33,18 @@ public class MedicationHistory implements Serializable {
 	//bi-directional many-to-one association to Checkin
 	@ManyToOne
 	@JoinColumn(name="checkin_id")
+	@Cascade({ CascadeType.PERSIST })
 	private Checkin checkin;
 
 	//bi-directional many-to-one association to Medication
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne
+	@Cascade({ CascadeType.PERSIST })
 	@JoinColumn(name="medicaton_id")
 	private Medication medication;
 
 	//bi-directional many-to-one association to Patient
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne
+	@Cascade({ CascadeType.PERSIST })
 	@JoinColumn(name="patient_id")
 	private Patient patient;
 

@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import com.wachira.symptomserver.entities.PatientMedication;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -46,25 +49,30 @@ public class Patient implements Serializable {
 	//bi-directional many-to-one association to Alert
 	@JsonIgnore
 	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER)
+	@Cascade({ CascadeType.PERSIST })
 	private List<Alert> alerts;
 
 	//bi-directional many-to-one association to Checkin
 	@JsonIgnore
-	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER)
+	@Cascade({ CascadeType.PERSIST })
 	private List<Checkin> checkins;
 
 	//bi-directional many-to-one association to MedicationHistory
 	@JsonIgnore
-	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER)
+	@Cascade({ CascadeType.PERSIST })
 	private List<MedicationHistory> medicationHistories;
 	
 	//bi-directional many-to-one association to PatientMedication
 	@JsonIgnore
-	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="patient", fetch=FetchType.EAGER)
+	@Cascade({ CascadeType.PERSIST })
 	private List<PatientMedication> patientMedications;
 
 	//bi-directional many-to-one association to Doctor
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne
+	@Cascade({ CascadeType.PERSIST })
 	@JoinColumn(name="doctor_id")
 	private Doctor doctor;
 

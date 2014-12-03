@@ -100,6 +100,8 @@ public class CheckinService {
 	
 	}
 	
+	
+	
 	public Patient findPatientByUserName(String username){
 		return ptRepo.findByUserName(username);
 	}
